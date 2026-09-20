@@ -1,0 +1,18 @@
+# Node dependencies and generated build output
+node_modules/
+dist/
+
+# Test and coverage output
+coverage/
+
+# IDE/editor metadata
+.vscode/
+.idea/
+
+# Local logs and temporary files
+*.log
+*.tmp
+
+# Git metadata
+.git/
+.gitignore

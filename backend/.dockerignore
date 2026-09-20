@@ -1,0 +1,27 @@
+# Local secrets and environment files
+.env
+.env.*
+
+# Keep the safe template available if needed
+!.env.example
+
+# Python-generated files
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Local virtual environments
+.venv/
+venv/
+
+# IDE/editor metadata
+.vscode/
+.idea/
+
+# Local logs and temporary files
+*.log
+*.tmp

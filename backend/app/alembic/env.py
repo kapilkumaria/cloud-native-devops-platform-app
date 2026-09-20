@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 from logging.config import fileConfig
 
 from alembic import context
-from sqlalchemy import engine_from_config, pool
+from sqlalchemy import URL, engine_from_config, pool
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -26,13 +26,14 @@ target_metadata = SQLModel.metadata
 load_dotenv()
 
 def get_url():
-    user = os.getenv("POSTGRES_USER", "postgres")
-    password = os.getenv("POSTGRES_PASSWORD", "")
-    server = os.getenv("POSTGRES_SERVER", "db")
-    port = os.getenv("POSTGRES_PORT", "5432")
-    db = os.getenv("POSTGRES_DB", "app")
-
-    return f"postgresql+psycopg://{user}:{password}@{server}:{port}/{db}"
+    return URL.create(
+        drivername="postgresql+psycopg",
+        username=os.getenv("POSTGRES_USER", "postgres"),
+        password=os.getenv("POSTGRES_PASSWORD", ""),
+        host=os.getenv("POSTGRES_SERVER", "db"),
+        port=int(os.getenv("POSTGRES_PORT", "5432")),
+        database=os.getenv("POSTGRES_DB", "app"),
+    )
 
 
 def run_migrations_offline():
