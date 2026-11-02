@@ -217,3 +217,40 @@ Status:
 ```text
 Completed
 ```
+
+## Secure Configuration
+
+The FastAPI backend requires these environment variables:
+
+| Variable | Purpose |
+|---|---|
+| `SECRET_KEY` | JWT signing and verification key |
+| `POSTGRES_PASSWORD` | PostgreSQL database password |
+| `FIRST_SUPERUSER_PASSWORD` | Initial administrator password |
+
+All three values must be supplied through the deployment environment.
+
+For local development, create `backend/.env` using `backend/.env.example`
+as a template. The example file intentionally leaves credentials empty.
+
+To generate a strong JWT signing key, run this command locally:
+
+    python3 -c 'import secrets; print(secrets.token_urlsafe(48))'
+
+Store the resulting key securely. Never commit it to Git.
+
+The same JWT signing key must be used across all backend replicas and
+application restarts.
+
+For Kubernetes deployments, use a centrally managed secret, such as
+AWS Secrets Manager integrated with External Secrets Operator.
+
+Database and administrator passwords must also be supplied securely.
+
+Do not store real credentials in Git repositories, container images,
+documentation, or publicly accessible configuration files.
+
+Before starting Docker Compose or Kubernetes workloads, ensure that
+the required environment variables are available to the backend.
+
+The example configuration files are templates, not production credentials.
